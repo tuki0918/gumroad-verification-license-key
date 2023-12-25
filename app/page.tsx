@@ -1,6 +1,6 @@
-import { client } from "@/utils/prisma";
-import { License } from "@/domains/License";
 import RedeemLicenseList from "@/components/RedeemLicenseList";
+import { License } from "@/domains/License";
+import { client } from "@/utils/prisma";
 
 async function getData() {
   const data = await client.license.findMany({
@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-4/5 items-center justify-between font-mono text-sm lg:flex">
+      <div className="max-w-4/5 z-10 items-center justify-between font-mono text-sm lg:flex">
         <div className="overflow-x-auto">
           <RedeemLicenseList items={items} />
         </div>
