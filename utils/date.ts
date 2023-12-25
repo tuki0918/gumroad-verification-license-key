@@ -29,6 +29,10 @@ export const formatJSTDate = (date: Date) => {
   return dayjs(date).tz("Asia/Tokyo").format("YYYY/MM/DD");
 };
 
+export const formatJSTDay = (date: Date) => {
+  return dayjs(date).tz("Asia/Tokyo").format("DD");
+};
+
 export const formatJSTTimeAgo = (date: Date, locale: string) => {
   const selectedLocale = selectLocale(locale);
   return dayjs(date).locale(selectedLocale).tz("Asia/Tokyo").fromNow();
