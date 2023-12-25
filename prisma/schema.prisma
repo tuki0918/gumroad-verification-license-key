@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,23 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model License {
+  id                        Int       @id @default(autoincrement())
+  key                       String    @db.VarChar(255)
+  order_number              String
+  purchased_at              DateTime
+  product_id                String
+  product_name              String
+  product_permalink         String
+  variants                  String?
+  price                     Int
+  quantity                  Int
+  currency                  String
+  recurrence                String
+  refunded                  Boolean   @default(false)
+  subscription_ended_at     DateTime?
+  subscription_cancelled_at DateTime?
+  subscription_failed_at    DateTime?
 }
