@@ -1,5 +1,5 @@
+import { formatJSTDay } from "utils/date";
 import { z } from "zod";
-import { parseToUTCDate, formatJSTDay } from "utils/date";
 
 const LicenseSchema = z.object({
   id: z.number(),
@@ -12,7 +12,7 @@ const LicenseSchema = z.object({
   variants: z.string().nullable(),
   price: z.number(),
   quantity: z.number(),
-  currency: z.string(),
+  currency: z.string().toUpperCase(),
   recurrence: z.string(),
   refunded: z.boolean(),
   subscription_ended_at: z.date().nullable(),
@@ -113,7 +113,7 @@ export class License {
   }
 
   get currency() {
-    return this.#currency.toUpperCase();
+    return this.#currency;
   }
 
   get recurrence() {

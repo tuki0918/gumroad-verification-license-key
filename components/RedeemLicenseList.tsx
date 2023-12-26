@@ -1,6 +1,6 @@
 import { License } from "@/domains/License";
-import { formatJSTDate } from "utils/date";
 import { FC } from "react";
+import { formatJSTDate, formatJSTDateTime } from "utils/date";
 
 const RedeemLicenseList: FC<{
   items: License[];
@@ -34,7 +34,12 @@ const RedeemLicenseList: FC<{
               </td>
               <td>{item.order_number}</td>
               <td className="text-center">
-                {formatJSTDate(item.purchased_at)}
+                <div
+                  className="tooltip"
+                  data-tip={formatJSTDateTime(item.purchased_at)}
+                >
+                  {formatJSTDate(item.purchased_at)}
+                </div>
               </td>
               <td>{item.key}</td>
               <td className="text-center">
@@ -61,19 +66,40 @@ const RedeemLicenseList: FC<{
               </td>
               <td className="text-center">{item.recurrence_day()}</td>
               <td className="text-center">
-                {item.subscription_ended_at === null
-                  ? ""
-                  : formatJSTDate(item.subscription_ended_at)}
+                {item.subscription_ended_at === null ? (
+                  ""
+                ) : (
+                  <div
+                    className="tooltip"
+                    data-tip={formatJSTDateTime(item.subscription_ended_at)}
+                  >
+                    {formatJSTDate(item.subscription_ended_at)}
+                  </div>
+                )}
               </td>
               <td className="text-center">
-                {item.subscription_cancelled_at === null
-                  ? ""
-                  : formatJSTDate(item.subscription_cancelled_at)}
+                {item.subscription_cancelled_at === null ? (
+                  ""
+                ) : (
+                  <div
+                    className="tooltip"
+                    data-tip={formatJSTDateTime(item.subscription_cancelled_at)}
+                  >
+                    {formatJSTDate(item.subscription_cancelled_at)}
+                  </div>
+                )}
               </td>
               <td className="text-center">
-                {item.subscription_failed_at === null
-                  ? ""
-                  : formatJSTDate(item.subscription_failed_at)}
+                {item.subscription_failed_at === null ? (
+                  ""
+                ) : (
+                  <div
+                    className="tooltip"
+                    data-tip={formatJSTDateTime(item.subscription_failed_at)}
+                  >
+                    {formatJSTDate(item.subscription_failed_at)}
+                  </div>
+                )}
               </td>
               {/* <td className="text-center"></td> */}
             </tr>

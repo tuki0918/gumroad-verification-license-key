@@ -25,6 +25,10 @@ export const parseToUTCDate = (date: string) => {
   return dayjs.utc(date).toDate();
 };
 
+export const formatJSTDateTime = (date: Date) => {
+  return dayjs(date).tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm:ss");
+};
+
 export const formatJSTDate = (date: Date) => {
   return dayjs(date).tz("Asia/Tokyo").format("YYYY/MM/DD");
 };
