@@ -1,5 +1,5 @@
-import { client } from "@/utils/prisma";
 import { verifyLicense } from "@/utils/gumroad";
+import { client } from "@/utils/prisma";
 
 async function getCount(license_key: string) {
   const count = await client.license.count({
@@ -46,6 +46,7 @@ export const POST = async (req: Request) => {
         currency: data.currency,
         recurrence: data.recurrence,
         refunded: data.refunded,
+        subscription_id: data.subscription_id,
         subscription_ended_at: data.subscription_ended_at,
         subscription_cancelled_at: data.subscription_cancelled_at,
         subscription_failed_at: data.subscription_failed_at,

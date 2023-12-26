@@ -15,6 +15,7 @@ const LicenseSchema = z.object({
   currency: z.string().toUpperCase(),
   recurrence: z.string(),
   refunded: z.boolean(),
+  subscription_id: z.string().nullable(),
   subscription_ended_at: z.date().nullable(),
   subscription_cancelled_at: z.date().nullable(),
   subscription_failed_at: z.date().nullable(),
@@ -44,6 +45,7 @@ export class License {
   #currency: string;
   #recurrence: string;
   #refunded: boolean;
+  #subscription_id: string | null;
   #subscription_ended_at: Date | null;
   #subscription_cancelled_at: Date | null;
   #subscription_failed_at: Date | null;
@@ -62,6 +64,7 @@ export class License {
     this.#currency = data.currency;
     this.#recurrence = data.recurrence;
     this.#refunded = data.refunded;
+    this.#subscription_id = data.subscription_id;
     this.#subscription_ended_at = data.subscription_ended_at;
     this.#subscription_cancelled_at = data.subscription_cancelled_at;
     this.#subscription_failed_at = data.subscription_failed_at;
@@ -122,6 +125,10 @@ export class License {
 
   get refunded() {
     return this.#refunded;
+  }
+
+  get subscription_id() {
+    return this.#subscription_id;
   }
 
   get subscription_ended_at() {

@@ -21,6 +21,7 @@ model License {
   currency                  String
   recurrence                String
   refunded                  Boolean   @default(false)
+  subscription_id           String?
   subscription_ended_at     DateTime?
   subscription_cancelled_at DateTime?
   subscription_failed_at    DateTime?
