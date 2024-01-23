@@ -1,3 +1,10 @@
+import {
+  CustomError,
+  FailedToVerifyLicenseKeyError,
+  InvalidLicenseKeyError,
+  LicenseKeyAlreadyExistsError,
+  SubscriptionIsNotAliveError,
+} from "@/app/api/_errors";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
 import { assignRoleToUser } from "@/utils/discord";
@@ -9,11 +16,14 @@ import {
 import { client } from "@/utils/prisma";
 
 export const POST = async (req: Request) => {
+  // NOTE: License key can be redeemed as long as it is valid
   try {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
     if (!isLicenseKeyFormat(license_key)) {
-      throw new Error("Invalid license key format:" + license_key);
+      throw new InvalidLicenseKeyError(
+        "Invalid license key format:" + license_key,
+      );
     }
 
     const count = await client.redeemLicense.count({
@@ -21,13 +31,17 @@ export const POST = async (req: Request) => {
     });
     if (count > 0) {
       console.log("License already exists key:", license_key, "exists:", count);
-      throw new Error("You have already used this license key:" + license_key);
+      throw new LicenseKeyAlreadyExistsError(
+        "You have already used this license key:" + license_key,
+      );
     }
 
     const res = await verifyLicense(product_id, license_key);
     if (res.success === false) {
       console.error(res.message);
-      throw new Error("Failed to verify license key:" + license_key);
+      throw new FailedToVerifyLicenseKeyError(
+        "Failed to verify license key:" + license_key,
+      );
     }
 
     const { uses, purchase: data } = res;
@@ -71,7 +85,7 @@ export const POST = async (req: Request) => {
 
     if (!subscription?.isAlive()) {
       console.log("Subscription is not alive");
-      throw new Error("Subscription is not alive");
+      throw new SubscriptionIsNotAliveError("Subscription is not alive");
     }
 
     await client.$transaction(async (prisma) => {
@@ -109,6 +123,12 @@ export const POST = async (req: Request) => {
     });
   } catch (err) {
     console.log(err);
+    if (err instanceof CustomError) {
+      return Response.json(
+        { success: false, message: err.message, code: err.code },
+        { status: 500 },
+      );
+    }
     return Response.json({ success: false, message: "Error" }, { status: 500 });
   }
 };

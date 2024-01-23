@@ -1,15 +1,9 @@
+import { CustomError, SubscriptionNotFoundError } from "@/app/api/_errors";
 import { RedeemLicense } from "@/domains/RedeemLicense";
 import { Subscription, SubscriptionWithoutID } from "@/domains/Subscription";
 import { revokeRoleFromUser } from "@/utils/discord";
 import { fetchSubscription } from "@/utils/gumroad";
 import { client } from "@/utils/prisma";
-
-async function getCount(license_key: string) {
-  const count = await client.license.count({
-    where: { key: license_key },
-  });
-  return count;
-}
 
 export const POST = async (req: Request) => {
   try {
@@ -21,9 +15,8 @@ export const POST = async (req: Request) => {
 
     if (!data) {
       console.log("Subscription not found");
-      return Response.json(
-        { success: false, message: "Subscription not found" },
-        { status: 500 },
+      throw new SubscriptionNotFoundError(
+        "Subscription not found by license key:" + license_key,
       );
     }
 
@@ -32,7 +25,7 @@ export const POST = async (req: Request) => {
     const nowData = await fetchSubscription(current.subscriptionId);
     if (nowData.success === false) {
       console.error(nowData.message);
-      throw new Error(
+      throw new SubscriptionNotFoundError(
         "Failed to fetch subscription data:" + current.subscriptionId,
       );
     }
@@ -78,6 +71,12 @@ export const POST = async (req: Request) => {
     return Response.json({ success: true, message: "Success" });
   } catch (err) {
     console.log(err);
+    if (err instanceof CustomError) {
+      return Response.json(
+        { success: false, message: err.message, code: err.code },
+        { status: 500 },
+      );
+    }
     return Response.json({ success: false, message: "Error" }, { status: 500 });
   }
 };
