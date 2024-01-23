@@ -7,22 +7,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model License {
-  id                        Int       @id @default(autoincrement())
-  key                       String    @db.VarChar(255)
-  order_number              String
-  purchased_at              DateTime
-  product_id                String
-  product_name              String
-  product_permalink         String
-  variants                  String?
-  price                     Int
-  quantity                  Int
-  currency                  String
-  recurrence                String
-  refunded                  Boolean   @default(false)
-  subscription_id           String?
-  subscription_ended_at     DateTime?
-  subscription_cancelled_at DateTime?
-  subscription_failed_at    DateTime?
+model RedeemLicense {
+  id                  Int                 @id @default(autoincrement())
+  code                String              @db.VarChar(255)
+  purchased_at        DateTime
+  product_id          String
+  product_name        String
+  product_permalink   String
+  variants            String?
+  price               Int
+  quantity            Int
+  currency            String
+  recurrence          String
+  status              RedeemLicenseStatus @default(enable)
+  discord_id          String
+  discord_grant_roles String[]
+  subscription_id     String?
+  created_at          DateTime            @default(now())
+  updated_at          DateTime            @updatedAt
+  subscription        Subscription?       @relation(fields: [subscription_id], references: [subscription_id])
+
+  @@unique([code, discord_id], name: "code_discord_id")
+}
+
+model Subscription {
+  id                             Int                @id @default(autoincrement())
+  subscription_id                String             @unique
+  product_id                     String
+  product_name                   String
+  // user_id                        String
+  // purchase_ids                   String[]
+  started_at                     DateTime
+  recurrence                     String
+  license_key                    String             @db.VarChar(255)
+  charge_occurrence_count        Int?
+  cancelled_at                   DateTime?
+  ended_at                       DateTime?
+  failed_at                      DateTime?
+  free_trial_ends_at             DateTime?
+  user_requested_cancellation_at DateTime?
+  status                         SubscriptionStatus @default(alive)
+  created_at                     DateTime           @default(now())
+  updated_at                     DateTime           @updatedAt
+  redeemLicenses                 RedeemLicense[]
+}
+
+enum RedeemLicenseStatus {
+  enable
+  disabled
+}
+
+enum SubscriptionStatus {
+  alive
+  pending_cancellation
+  pending_failure
+  failed_payment
+  fixed_subscription_period_ended
+  cancelled
 }
