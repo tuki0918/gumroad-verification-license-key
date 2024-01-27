@@ -23,7 +23,7 @@ const SubscriptionSchema = z.object({
   started_at: z.date(),
   user_requested_cancellation_at: z.date().nullable(),
   charge_occurrence_count: z.number().nullable(),
-  recurrence: z.string().toUpperCase(),
+  recurrence: z.string(),
   cancelled_at: z.date().nullable(),
   ended_at: z.date().nullable(),
   failed_at: z.date().nullable(),
@@ -121,7 +121,7 @@ export class SubscriptionWithoutID {
   }
 
   recurrenceSortWord(): string {
-    return this.recurrence.substring(0, 1);
+    return this.recurrence.toUpperCase().substring(0, 1);
   }
 
   recurrenceDay(): number {
