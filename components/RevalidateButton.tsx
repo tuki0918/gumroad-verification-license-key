@@ -6,7 +6,7 @@ const RevalidateButton: FC<{ code: string }> = ({ code }) => {
   const router = useRouter();
   const handleRevalidate = async (code: string) => {
     try {
-      const res = await fetch("http://localhost:3000/api/licenses/revalidate", {
+      const res = await fetch("/api/licenses/revalidate", {
         method: "POST",
         body: JSON.stringify({
           license_key: code,
