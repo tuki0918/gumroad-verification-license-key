@@ -20,11 +20,6 @@ export const POST = async (req: Request) => {
   try {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
-    if (!isLicenseKeyFormat(license_key)) {
-      throw new InvalidLicenseKeyError(
-        "Invalid license key format:" + license_key,
-      );
-    }
 
     // NOTE: debug response
     if (license_key === "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX") {
@@ -36,6 +31,12 @@ export const POST = async (req: Request) => {
           discord_grant_roles: [],
         },
       });
+    }
+
+    if (!isLicenseKeyFormat(license_key)) {
+      throw new InvalidLicenseKeyError(
+        "Invalid license key format:" + license_key,
+      );
     }
 
     const count = await client.redeemLicense.count({
@@ -141,6 +142,9 @@ export const POST = async (req: Request) => {
         { status: 500 },
       );
     }
-    return Response.json({ success: false, message: "Error" }, { status: 500 });
+    return Response.json(
+      { success: false, message: "Error", code: "UNKNOWN" },
+      { status: 500 },
+    );
   }
 };
