@@ -30,10 +30,7 @@ export const verifyLicense = async (productId: string, licenseKey: string) => {
     }),
   });
   const data = await res.json();
-  if (!res.ok) {
-    console.error(data);
-    throw new Error("Failed to fetch data");
-  }
+  if (!res.ok) console.error(data);
   return data as Promise<ApiVerifyLicenseResponse>;
 };
 
@@ -48,9 +45,6 @@ export const fetchSubscription = async (subscriptionId: string) => {
     },
   });
   const data = await res.json();
-  if (!res.ok) {
-    console.error(data);
-    throw new Error("Failed to fetch data");
-  }
+  if (!res.ok) console.error(data);
   return data as Promise<ApiSubscriptionResponse>;
 };

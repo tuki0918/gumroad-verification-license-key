@@ -9,6 +9,7 @@ export class CustomError extends Error {
 export const ERROR_CODE__INVALID_LICENSE_KEY = "INVALID_LICENSE_KEY";
 export const ERROR_CODE__LICENSE_KEY_ALREADY_EXISTS =
   "LICENSE_KEY_ALREADY_EXISTS";
+export const ERROR_CODE__LICENSE_KEY_DISABLED = "LICENSE_KEY_DISABLED";
 export const ERROR_CODE__FAILED_TO_VERIFY_LICENSE_KEY =
   "FAILED_TO_VERIFY_LICENSE_KEY";
 export const ERROR_CODE__SUBSCRIPTION_IS_NOT_ALIVE =
@@ -24,6 +25,12 @@ export class InvalidLicenseKeyError extends CustomError {
 export class LicenseKeyAlreadyExistsError extends CustomError {
   constructor(message: string) {
     super(message, ERROR_CODE__LICENSE_KEY_ALREADY_EXISTS);
+  }
+}
+
+export class LicenseKeyDisabledError extends CustomError {
+  constructor(message: string) {
+    super(message, ERROR_CODE__LICENSE_KEY_DISABLED);
   }
 }
 

@@ -3,6 +3,7 @@ import {
   FailedToVerifyLicenseKeyError,
   InvalidLicenseKeyError,
   LicenseKeyAlreadyExistsError,
+  LicenseKeyDisabledError,
   SubscriptionIsNotAliveError,
 } from "@/app/api/_errors";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
@@ -45,16 +46,18 @@ export const POST = async (req: Request) => {
     if (count > 0) {
       console.log("License already exists key:", license_key, "exists:", count);
       throw new LicenseKeyAlreadyExistsError(
-        "You have already used this license key:" + license_key,
+        "You have already used this license key.",
       );
     }
 
     const res = await verifyLicense(product_id, license_key);
     if (res.success === false) {
-      console.error(res.message);
-      throw new FailedToVerifyLicenseKeyError(
-        "Failed to verify license key:" + license_key,
-      );
+      const text = "This license key has been disabled.";
+      if (res.message === text) {
+        throw new LicenseKeyDisabledError(text);
+      }
+
+      throw new FailedToVerifyLicenseKeyError("Failed to verify license key.");
     }
 
     const { uses, purchase: data } = res;
@@ -97,8 +100,9 @@ export const POST = async (req: Request) => {
     }
 
     if (!subscription?.isAlive()) {
-      console.log("Subscription is not alive");
-      throw new SubscriptionIsNotAliveError("Subscription is not alive");
+      const text = "Subscription is not alive";
+      console.log(text);
+      throw new SubscriptionIsNotAliveError(text);
     }
 
     await client.$transaction(async (prisma) => {
