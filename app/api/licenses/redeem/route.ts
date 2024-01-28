@@ -26,6 +26,18 @@ export const POST = async (req: Request) => {
       );
     }
 
+    // NOTE: debug response
+    if (license_key === "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX") {
+      return Response.json({
+        success: true,
+        message: "[TEST] Success",
+        data: {
+          discord_id,
+          discord_grant_roles: [],
+        },
+      });
+    }
+
     const count = await client.redeemLicense.count({
       where: { code: license_key, discord_id },
     });
