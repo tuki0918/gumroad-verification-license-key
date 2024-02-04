@@ -8,7 +8,7 @@ async function getData() {
   const data = await client.subscription.findMany({
     orderBy: [
       {
-        updated_at: "asc",
+        started_at: "asc",
       },
     ],
     include: {
