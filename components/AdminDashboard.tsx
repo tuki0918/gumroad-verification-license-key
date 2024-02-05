@@ -58,6 +58,7 @@ const AdminDashboard: FC<AdminDashboardProps> = ({ data }) => {
           statusFilteres={statusFilteres}
         />
       </div>
+      <div className="my-4 text-right">{filteredItems.length} items found.</div>
       <div className="my-4">
         <RedeemLicenseList items={filteredItems} />
       </div>
