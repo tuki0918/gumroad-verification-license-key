@@ -22,7 +22,7 @@ export const POST = async (req: Request) => {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
 
-    // NOTE: debug response
+    // NOTE: deprecated / debug response
     if (license_key === "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX") {
       return Response.json({
         success: true,

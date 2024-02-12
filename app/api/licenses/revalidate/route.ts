@@ -41,6 +41,7 @@ export const POST = async (req: Request) => {
         where: { id: current.id },
       });
 
+      // TODO: payment failed to success
       if (!now.isAlive()) {
         console.log("Subscription is not alive");
         // disable all licenses
