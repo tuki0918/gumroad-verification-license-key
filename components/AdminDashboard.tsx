@@ -2,7 +2,7 @@
 import RedeemLicenseList, {
   RedeemLicenseItem,
 } from "@/components/RedeemLicenseList";
-import SubscriptionStatusFilter from "@/components/SubscriptionStatusFilter";
+import FilterMenu from "@/components/ui/FilterMenu";
 import { RedeemLicense } from "@/domains/RedeemLicense";
 import { Subscription, SubscriptionStatusType } from "@/domains/Subscription";
 import { Prisma } from "@prisma/client";
@@ -15,6 +15,15 @@ export type AdminDashboardProps = {
     };
   }>[];
 };
+
+const checkboxList: SubscriptionStatusType[] = [
+  "alive",
+  "pending_cancellation",
+  "pending_failure",
+  "failed_payment",
+  "fixed_subscription_period_ended",
+  "cancelled",
+];
 
 const AdminDashboard: FC<AdminDashboardProps> = ({ data }) => {
   const items: RedeemLicenseItem[] = useMemo(() => {
@@ -53,9 +62,10 @@ const AdminDashboard: FC<AdminDashboardProps> = ({ data }) => {
   return (
     <div>
       <div className="my-4">
-        <SubscriptionStatusFilter
-          setStatusFilteres={setStatusFilteres}
-          statusFilteres={statusFilteres}
+        <FilterMenu
+          checkboxList={checkboxList}
+          filters={statusFilteres}
+          setFilters={setStatusFilteres}
         />
       </div>
       <div className="my-4 text-right">{filteredItems.length} items found.</div>
