@@ -63,13 +63,6 @@ export const POST = async (req: Request) => {
     const { uses, purchase: data } = res;
     console.log("Verified license key:", license_key, "uses:", uses);
 
-    // if (data?.test) {
-    //   return Response.json(
-    //     { success: false, message: "Skipping verification for test purchase" },
-    //     { status: 500 }
-    //   );
-    // }
-
     const discordGrantRoles: string[] = [];
     if (process.env.DISCORD_GRANT_COMMON_ROLE_ID !== undefined) {
       discordGrantRoles.push(process.env.DISCORD_GRANT_COMMON_ROLE_ID);
