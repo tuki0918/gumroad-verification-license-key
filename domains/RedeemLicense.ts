@@ -102,6 +102,10 @@ export class RedeemLicenseWithoutID {
     return this.status === "enable";
   }
 
+  addDiscordGrantRole(role: string): void {
+    this.discordGrantRoles.push(role);
+  }
+
   toDB(): Prisma.RedeemLicenseUncheckedCreateInput {
     return {
       code: this.code,

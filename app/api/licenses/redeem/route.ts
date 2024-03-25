@@ -63,18 +63,10 @@ export const POST = async (req: Request) => {
     const { uses, purchase: data } = res;
     console.log("Verified license key:", license_key, "uses:", uses);
 
-    const discordGrantRoles: string[] = [];
-    if (process.env.DISCORD_GRANT_COMMON_ROLE_ID !== undefined) {
-      discordGrantRoles.push(process.env.DISCORD_GRANT_COMMON_ROLE_ID);
-    }
-    if (data.custom_fields?.discord_grant_role !== undefined) {
-      discordGrantRoles.push(data.custom_fields?.discord_grant_role);
-    }
-
     const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
       data,
       discord_id,
-      discordGrantRoles,
+      [],
     );
 
     let subscription: SubscriptionWithoutID | null = null;
@@ -96,6 +88,15 @@ export const POST = async (req: Request) => {
       const text = "Subscription is not alive";
       console.log(text);
       throw new SubscriptionIsNotAliveError(text);
+    }
+
+    if (process.env.DISCORD_GRANT_COMMON_ROLE_ID !== undefined) {
+      redeemLicense.addDiscordGrantRole(
+        process.env.DISCORD_GRANT_COMMON_ROLE_ID,
+      );
+    }
+    if (data.custom_fields?.discord_grant_role !== undefined) {
+      redeemLicense.addDiscordGrantRole(data.custom_fields.discord_grant_role);
     }
 
     await client.$transaction(async (prisma) => {
