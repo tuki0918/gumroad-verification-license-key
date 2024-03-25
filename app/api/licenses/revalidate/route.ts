@@ -30,7 +30,7 @@ export const POST = async (req: Request) => {
       );
     }
 
-    const now = SubscriptionWithoutID.createFromSubscriptionResponse(
+    const now = SubscriptionWithoutID.createFromUnmarshalledSubscription(
       nowData.subscriber,
     );
 

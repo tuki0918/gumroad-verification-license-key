@@ -71,7 +71,7 @@ export const POST = async (req: Request) => {
       discordGrantRoles.push(data.custom_fields?.discord_grant_role);
     }
 
-    const redeemLicense = RedeemLicenseWithoutID.createFromPurchaseResponse(
+    const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
       data,
       discord_id,
       discordGrantRoles,
@@ -87,7 +87,7 @@ export const POST = async (req: Request) => {
         throw new Error("Failed to fetch subscription data:" + subscriptionId);
       }
       // Create subscription
-      subscription = SubscriptionWithoutID.createFromSubscriptionResponse(
+      subscription = SubscriptionWithoutID.createFromUnmarshalledSubscription(
         subscriptionData.subscriber,
       );
     }

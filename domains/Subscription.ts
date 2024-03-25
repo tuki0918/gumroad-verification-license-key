@@ -1,4 +1,4 @@
-import type { Subscriber } from "@/types/gumroad";
+import type { UnmarshalledSubscriber } from "@/types/gumroad";
 import { parseToUTCDate } from "@/utils/date";
 import { Prisma } from "@prisma/client";
 import { formatJSTDay } from "utils/date";
@@ -82,8 +82,8 @@ export class SubscriptionWithoutID {
     return SubscriptionWithoutID.create(data);
   }
 
-  static createFromSubscriptionResponse(
-    data: Subscriber,
+  static createFromUnmarshalledSubscription(
+    data: UnmarshalledSubscriber,
   ): SubscriptionWithoutID {
     return SubscriptionWithoutID.create({
       subscription_id: data.id,

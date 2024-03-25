@@ -1,4 +1,4 @@
-type Card = {
+type UnmarshalledCard = {
   visual: null;
   type: null;
   bin: null;
@@ -6,7 +6,7 @@ type Card = {
   expiry_year: null;
 };
 
-export type Purchase = {
+export type UnmarshalledPurchase = {
   seller_id: string;
   product_id: string;
   product_name: string;
@@ -23,7 +23,7 @@ export type Purchase = {
   can_contact: boolean;
   referrer: string;
   /** @deprecated WARNING */
-  card: Card;
+  card: UnmarshalledCard;
   order_number: number;
   sale_id: string;
   sale_timestamp: string;
@@ -48,7 +48,7 @@ export type Purchase = {
   subscription_failed_at: string | null;
 };
 
-type SubscriberStatus =
+type UnmarshalledSubscriberStatus =
   | "alive"
   | "pending_cancellation"
   | "pending_failure"
@@ -56,7 +56,7 @@ type SubscriberStatus =
   | "fixed_subscription_period_ended"
   | "cancelled";
 
-export type Subscriber = {
+export type UnmarshalledSubscriber = {
   id: string;
   product_id: string;
   product_name: string;
@@ -73,7 +73,7 @@ export type Subscriber = {
   failed_at: string | null;
   free_trial_ends_at: string | null;
   license_key: string;
-  status: SubscriberStatus;
+  status: UnmarshalledSubscriberStatus;
 };
 
 type ApiResponseSuccess<T> = T & {
@@ -89,9 +89,9 @@ type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
 
 export type ApiVerifyLicenseResponse = ApiResponse<{
   uses: number;
-  purchase: Purchase;
+  purchase: UnmarshalledPurchase;
 }>;
 
 export type ApiSubscriptionResponse = ApiResponse<{
-  subscriber: Subscriber;
+  subscriber: UnmarshalledSubscriber;
 }>;

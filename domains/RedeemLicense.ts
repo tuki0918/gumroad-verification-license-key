@@ -1,4 +1,4 @@
-import type { Purchase } from "@/types/gumroad";
+import type { UnmarshalledPurchase } from "@/types/gumroad";
 import { parseToUTCDate } from "@/utils/date";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
@@ -74,8 +74,8 @@ export class RedeemLicenseWithoutID {
     return RedeemLicenseWithoutID.create(data);
   }
 
-  static createFromPurchaseResponse(
-    data: Purchase,
+  static createFromUnmarshalledPurchase(
+    data: UnmarshalledPurchase,
     discordId: string,
     discordGrantRoles: string[],
     status: RedeemLicenseStatusType = "enable",
