@@ -6,6 +6,7 @@ const RevalidateButton: FC<{ code: string }> = ({ code }) => {
   const router = useRouter();
   const handleRevalidate = async (code: string) => {
     try {
+      // TODO: type-safe route endpoint
       const res = await fetch("/api/licenses/revalidate", {
         method: "POST",
         body: JSON.stringify({
