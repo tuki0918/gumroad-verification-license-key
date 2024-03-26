@@ -221,4 +221,8 @@ export class Subscription extends SubscriptionWithoutID {
   get id(): number {
     return this._id;
   }
+
+  isEqual(other: Subscription): boolean {
+    return this._id === other.id;
+  }
 }
