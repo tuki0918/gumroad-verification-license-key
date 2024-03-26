@@ -39,38 +39,38 @@ type SubscriptionType = z.infer<typeof SubscriptionSchema>;
 export type SubscriptionStatusType = z.infer<typeof SubscriptionStatusSchema>;
 
 export class SubscriptionWithoutID {
-  readonly subscriptionId: string;
-  readonly productId: string;
-  readonly productName: string;
-  // readonly userId: string;
-  // readonly purchaseIds: string[];
-  readonly startedAt: Date;
-  readonly userRequestedCancellationAt: Date | null;
-  readonly chargeOccurrenceCount: number | null;
-  readonly recurrence: string;
-  readonly cancelledAt: Date | null;
-  readonly endedAt: Date | null;
-  readonly failedAt: Date | null;
-  readonly freeTrialEndsAt: Date | null;
-  readonly licenseKey: string;
-  readonly status: SubscriptionStatusType;
+  private readonly _subscriptionId: string;
+  private _productId: string;
+  private _productName: string;
+  // private _userId: string;
+  // private _purchaseIds: string[];
+  private _startedAt: Date;
+  private _userRequestedCancellationAt: Date | null;
+  private _chargeOccurrenceCount: number | null;
+  private _recurrence: string;
+  private _cancelledAt: Date | null;
+  private _endedAt: Date | null;
+  private _failedAt: Date | null;
+  private _freeTrialEndsAt: Date | null;
+  private _licenseKey: string;
+  private _status: SubscriptionStatusType;
 
   protected constructor(data: SubscriptionWithoutIDType) {
-    this.subscriptionId = data.subscription_id;
-    this.productId = data.product_id;
-    this.productName = data.product_name;
-    // this.userId = data.user_id;
-    // this.purchaseIds = data.purchase_ids;
-    this.startedAt = data.started_at;
-    this.userRequestedCancellationAt = data.user_requested_cancellation_at;
-    this.chargeOccurrenceCount = data.charge_occurrence_count;
-    this.recurrence = data.recurrence;
-    this.cancelledAt = data.cancelled_at;
-    this.endedAt = data.ended_at;
-    this.failedAt = data.failed_at;
-    this.freeTrialEndsAt = data.free_trial_ends_at;
-    this.licenseKey = data.license_key;
-    this.status = data.status;
+    this._subscriptionId = data.subscription_id;
+    this._productId = data.product_id;
+    this._productName = data.product_name;
+    // this._userId = data.user_id;
+    // this._purchaseIds = data.purchase_ids;
+    this._startedAt = data.started_at;
+    this._userRequestedCancellationAt = data.user_requested_cancellation_at;
+    this._chargeOccurrenceCount = data.charge_occurrence_count;
+    this._recurrence = data.recurrence;
+    this._cancelledAt = data.cancelled_at;
+    this._endedAt = data.ended_at;
+    this._failedAt = data.failed_at;
+    this._freeTrialEndsAt = data.free_trial_ends_at;
+    this._licenseKey = data.license_key;
+    this._status = data.status;
   }
 
   static create(data: SubscriptionWithoutIDType): SubscriptionWithoutID {
@@ -112,49 +112,101 @@ export class SubscriptionWithoutID {
     });
   }
 
+  get subscriptionId(): string {
+    return this._subscriptionId;
+  }
+
+  get productId(): string {
+    return this._productId;
+  }
+
+  get productName(): string {
+    return this._productName;
+  }
+
+  get startedAt(): Date {
+    return this._startedAt;
+  }
+
+  get userRequestedCancellationAt(): Date | null {
+    return this._userRequestedCancellationAt;
+  }
+
+  get chargeOccurrenceCount(): number | null {
+    return this._chargeOccurrenceCount;
+  }
+
+  get recurrence(): string {
+    return this._recurrence;
+  }
+
+  get cancelledAt(): Date | null {
+    return this._cancelledAt;
+  }
+
+  get endedAt(): Date | null {
+    return this._endedAt;
+  }
+
+  get failedAt(): Date | null {
+    return this._failedAt;
+  }
+
+  get freeTrialEndsAt(): Date | null {
+    return this._freeTrialEndsAt;
+  }
+
+  get licenseKey(): string {
+    return this._licenseKey;
+  }
+
+  get status(): SubscriptionStatusType {
+    return this._status;
+  }
+
   isAlive(): boolean {
     return (
-      this.status === "alive" ||
-      this.status === "pending_cancellation" ||
-      this.status === "pending_failure"
+      this._status === "alive" ||
+      this._status === "pending_cancellation" ||
+      this._status === "pending_failure"
     );
   }
 
   recurrenceSortWord(): string {
-    return this.recurrence.toUpperCase().substring(0, 1);
+    return this._recurrence.toUpperCase().substring(0, 1);
   }
 
   recurrenceDay(): number {
-    return Number(formatJSTDay(this.startedAt));
+    return Number(formatJSTDay(this._startedAt));
   }
 
   toDB(): Prisma.SubscriptionUncheckedCreateInput {
     return {
-      subscription_id: this.subscriptionId,
-      product_id: this.productId,
-      product_name: this.productName,
-      // user_id: this.userId,
-      // purchase_ids: this.purchaseIds,
-      started_at: this.startedAt,
-      recurrence: this.recurrence,
-      license_key: this.licenseKey,
-      user_requested_cancellation_at: this.userRequestedCancellationAt,
-      charge_occurrence_count: this.chargeOccurrenceCount,
-      cancelled_at: this.cancelledAt,
-      ended_at: this.endedAt,
-      failed_at: this.failedAt,
-      free_trial_ends_at: this.freeTrialEndsAt,
-      status: this.status,
+      subscription_id: this._subscriptionId,
+      product_id: this._productId,
+      product_name: this._productName,
+      // user_id: this._userId,
+      // purchase_ids: this._purchaseIds,
+      started_at: this._startedAt,
+      recurrence: this._recurrence,
+      license_key: this._licenseKey,
+      user_requested_cancellation_at: this._userRequestedCancellationAt,
+      charge_occurrence_count: this._chargeOccurrenceCount,
+      cancelled_at: this._cancelledAt,
+      ended_at: this._endedAt,
+      failed_at: this._failedAt,
+      free_trial_ends_at: this._freeTrialEndsAt,
+      status: this._status,
     };
   }
 }
 
 export class Subscription extends SubscriptionWithoutID {
-  readonly id: number;
+  private readonly _id: number;
 
   private constructor(data: SubscriptionType) {
     super(data);
-    this.id = data.id;
+    this._id = data.id;
   }
 
   static create(data: SubscriptionType): Subscription {
@@ -164,5 +216,9 @@ export class Subscription extends SubscriptionWithoutID {
 
   static reconstruct(data: SubscriptionType): Subscription {
     return Subscription.create(data);
+  }
+
+  get id(): number {
+    return this._id;
   }
 }
