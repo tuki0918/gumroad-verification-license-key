@@ -33,36 +33,36 @@ type RedeemLicenseType = z.infer<typeof RedeemLicenseSchema>;
 type RedeemLicenseStatusType = z.infer<typeof RedeemLicenseStatusSchema>;
 
 export class RedeemLicenseWithoutID {
-  readonly code: string;
-  readonly purchasedAt: Date;
-  readonly productId: string;
-  readonly productName: string;
-  readonly productPermalink: string;
-  readonly variants: string | null;
-  readonly price: number;
-  readonly quantity: number;
-  readonly currency: string;
-  readonly recurrence: string;
-  readonly status: RedeemLicenseStatusType;
-  readonly discordId: string;
-  readonly discordGrantRoles: string[];
-  readonly subscriptionId: string | null;
+  private readonly _code: string;
+  private _purchasedAt: Date;
+  private _productId: string;
+  private _productName: string;
+  private _productPermalink: string;
+  private _variants: string | null;
+  private _price: number;
+  private _quantity: number;
+  private _currency: string;
+  private _recurrence: string;
+  private _status: RedeemLicenseStatusType;
+  private readonly _discordId: string;
+  private _discordGrantRoles: string[];
+  private readonly _subscriptionId: string | null;
 
   protected constructor(data: RedeemLicenseWithoutIDType) {
-    this.code = data.code;
-    this.purchasedAt = data.purchased_at;
-    this.productId = data.product_id;
-    this.productName = data.product_name;
-    this.productPermalink = data.product_permalink;
-    this.variants = data.variants;
-    this.price = data.price;
-    this.quantity = data.quantity;
-    this.currency = data.currency;
-    this.recurrence = data.recurrence;
-    this.status = data.status;
-    this.discordId = data.discord_id;
-    this.discordGrantRoles = [...new Set(data.discord_grant_roles)];
-    this.subscriptionId = data.subscription_id;
+    this._code = data.code;
+    this._purchasedAt = data.purchased_at;
+    this._productId = data.product_id;
+    this._productName = data.product_name;
+    this._productPermalink = data.product_permalink;
+    this._variants = data.variants;
+    this._price = data.price;
+    this._quantity = data.quantity;
+    this._currency = data.currency;
+    this._recurrence = data.recurrence;
+    this._status = data.status;
+    this._discordId = data.discord_id;
+    this._discordGrantRoles = [...new Set(data.discord_grant_roles)];
+    this._subscriptionId = data.subscription_id;
   }
 
   static create(data: RedeemLicenseWithoutIDType): RedeemLicenseWithoutID {
@@ -98,40 +98,96 @@ export class RedeemLicenseWithoutID {
     });
   }
 
+  get code(): string {
+    return this._code;
+  }
+
+  get purchasedAt(): Date {
+    return this._purchasedAt;
+  }
+
+  get productId(): string {
+    return this._productId;
+  }
+
+  get productName(): string {
+    return this._productName;
+  }
+
+  get productPermalink(): string {
+    return this._productPermalink;
+  }
+
+  get variants(): string | null {
+    return this._variants;
+  }
+
+  get price(): number {
+    return this._price;
+  }
+
+  get quantity(): number {
+    return this._quantity;
+  }
+
+  get currency(): string {
+    return this._currency;
+  }
+
+  get recurrence(): string {
+    return this._recurrence;
+  }
+
+  get status(): RedeemLicenseStatusType {
+    return this._status;
+  }
+
+  get discordId(): string {
+    return this._discordId;
+  }
+
+  get discordGrantRoles(): string[] {
+    return this._discordGrantRoles;
+  }
+
+  get subscriptionId(): string | null {
+    return this._subscriptionId;
+  }
+
   isEnable(): boolean {
-    return this.status === "enable";
+    return this._status === "enable";
   }
 
   addDiscordGrantRole(role: string): void {
-    this.discordGrantRoles.push(role);
+    this._discordGrantRoles.push(role);
   }
 
   toDB(): Prisma.RedeemLicenseUncheckedCreateInput {
     return {
-      code: this.code,
-      purchased_at: this.purchasedAt,
-      product_id: this.productId,
-      product_name: this.productName,
-      product_permalink: this.productPermalink,
-      variants: this.variants,
-      price: this.price,
-      quantity: this.quantity,
-      currency: this.currency,
-      recurrence: this.recurrence,
-      status: this.status,
-      discord_id: this.discordId,
-      discord_grant_roles: this.discordGrantRoles,
-      subscription_id: this.subscriptionId,
+      code: this._code,
+      purchased_at: this._purchasedAt,
+      product_id: this._productId,
+      product_name: this._productName,
+      product_permalink: this._productPermalink,
+      variants: this._variants,
+      price: this._price,
+      quantity: this._quantity,
+      currency: this._currency,
+      recurrence: this._recurrence,
+      status: this._status,
+      discord_id: this._discordId,
+      discord_grant_roles: this._discordGrantRoles,
+      subscription_id: this._subscriptionId,
     };
   }
 }
 
 export class RedeemLicense extends RedeemLicenseWithoutID {
-  readonly id: number;
+  private readonly _id: number;
 
   private constructor(data: RedeemLicenseType) {
     super(data);
-    this.id = data.id;
+    this._id = data.id;
   }
 
   static create(data: RedeemLicenseType): RedeemLicense {
@@ -141,5 +197,9 @@ export class RedeemLicense extends RedeemLicenseWithoutID {
 
   static reconstruct(data: RedeemLicenseType): RedeemLicense {
     return RedeemLicense.create(data);
+  }
+
+  get id(): number {
+    return this._id;
   }
 }
