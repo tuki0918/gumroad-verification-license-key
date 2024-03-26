@@ -22,18 +22,6 @@ export const POST = async (req: Request) => {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
 
-    // NOTE: deprecated / debug response
-    if (license_key === "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX") {
-      return Response.json({
-        success: true,
-        message: "[TEST] Success",
-        data: {
-          discord_id,
-          discord_grant_roles: [],
-        },
-      });
-    }
-
     if (!isLicenseKeyFormat(license_key)) {
       throw new InvalidLicenseKeyError(
         "Invalid license key format:" + license_key,
