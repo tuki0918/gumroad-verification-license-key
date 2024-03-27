@@ -36,18 +36,20 @@ const fetchRedeemLicense = async (
     throw new FailedToVerifyLicenseKeyError("Failed to verify license key.");
   }
 
-  const { uses, purchase: data } = res;
+  const { uses, purchase } = res;
   console.log("Verified license key:", licenseKey, "uses:", uses);
 
   const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
-    data,
+    purchase,
     discordId,
     [],
     "enable",
   );
 
-  if (data.custom_fields?.discord_grant_role !== undefined) {
-    redeemLicense.addDiscordGrantRole(data.custom_fields.discord_grant_role);
+  if (purchase.custom_fields?.discord_grant_role !== undefined) {
+    redeemLicense.addDiscordGrantRole(
+      purchase.custom_fields.discord_grant_role,
+    );
   }
 
   return redeemLicense;

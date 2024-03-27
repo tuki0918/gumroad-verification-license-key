@@ -202,4 +202,8 @@ export class RedeemLicense extends RedeemLicenseWithoutID {
   get id(): number {
     return this._id;
   }
+
+  isEqual(other: RedeemLicense): boolean {
+    return this._id === other.id;
+  }
 }
