@@ -66,6 +66,7 @@ const AdminDashboard: FC<AdminDashboardProps> = ({ data }) => {
           checkboxList={checkboxList}
           filters={statusFilteres}
           setFilters={setStatusFilteres}
+          namespace="SubscriptionStatus"
         />
       </div>
       <div className="my-4 text-right">{filteredItems.length} items found.</div>

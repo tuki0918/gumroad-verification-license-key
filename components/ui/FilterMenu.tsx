@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 
 type FilterMenuType = string;
@@ -5,13 +6,17 @@ interface FilterMenuProps<T extends FilterMenuType> {
   checkboxList: T[];
   filters: T[];
   setFilters: (list: T[]) => void;
+  namespace?: string;
 }
 
 const FilterMenu = <T extends FilterMenuType>({
   checkboxList,
   filters,
   setFilters,
+  namespace,
 }: FilterMenuProps<T>): JSX.Element => {
+  const t = useTranslations("FilterMenu");
+
   const handleStatusChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value as T;
@@ -37,7 +42,9 @@ const FilterMenu = <T extends FilterMenuType>({
                 checked={filters.includes(status)}
                 onChange={handleStatusChange}
               />
-              <span className="label-text p-2">{status}</span>
+              <span className="label-text p-2">
+                {namespace ? t(`${namespace}/${status}`) : status}
+              </span>
             </label>
           </div>
         );

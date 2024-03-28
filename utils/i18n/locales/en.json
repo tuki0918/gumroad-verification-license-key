@@ -23,5 +23,15 @@
     "createdAt": "Created At",
     "updatedAt": "Updated At",
     "comment": "Comment"
+  },
+  "FilterMenu": {
+    "SubscriptionStatus/alive": "Alive",
+    "SubscriptionStatus/pending_cancellation": "Pending Cancellation",
+    "SubscriptionStatus/pending_failure": "Pending Failure",
+    "SubscriptionStatus/failed_payment": "Failed Payment",
+    "SubscriptionStatus/fixed_subscription_period_ended": "Fixed Subscription Period Ended",
+    "SubscriptionStatus/cancelled": "Cancelled",
+    "FilteredFieldsType/license_key": "License Key",
+    "FilteredFieldsType/product": "Product"
   }
 }

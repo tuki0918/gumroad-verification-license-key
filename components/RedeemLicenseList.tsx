@@ -45,6 +45,7 @@ const RedeemLicenseList: FC<{
           checkboxList={checkboxList}
           filters={filteredFields}
           setFilters={setFilteredFields}
+          namespace="FilteredFieldsType"
         />
       </div>
       <div className="my-4">

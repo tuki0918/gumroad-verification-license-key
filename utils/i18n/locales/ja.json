@@ -23,5 +23,15 @@
     "createdAt": "作成日時",
     "updatedAt": "更新日時",
     "comment": "備考"
+  },
+  "FilterMenu": {
+    "SubscriptionStatus/alive": "有効",
+    "SubscriptionStatus/pending_cancellation": "保留_キャンセル",
+    "SubscriptionStatus/pending_failure": "保留_失敗",
+    "SubscriptionStatus/failed_payment": "決済失敗",
+    "SubscriptionStatus/fixed_subscription_period_ended": "購読期間終了",
+    "SubscriptionStatus/cancelled": "キャンセル",
+    "FilteredFieldsType/license_key": "ライセンスキー",
+    "FilteredFieldsType/product": "製品情報"
   }
 }
