@@ -1,4 +1,8 @@
 {
+  "AuthButton": {
+    "LoginButton/login": "ログイン",
+    "LogoutButton/logout": "ログアウト"
+  },
   "RedeemLicenseList": {
     "startedAt": "契約日",
     "licenseKey": "ライセンスキー",
