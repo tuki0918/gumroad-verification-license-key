@@ -7,11 +7,11 @@ export const POST = async (req: Request) => {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
 
-    const { redeemLicense } = await execute(
-      product_id,
-      license_key,
-      discord_id,
-    );
+    const { redeemLicense } = await execute({
+      productId: product_id,
+      licenseKey: license_key,
+      discordId: discord_id,
+    });
 
     return Response.json({
       success: true,
@@ -26,7 +26,7 @@ export const POST = async (req: Request) => {
     if (err instanceof CustomError) {
       return Response.json(
         { success: false, message: err.message, code: err.code },
-        { status: 500 },
+        { status: err.status },
       );
     }
     return Response.json(

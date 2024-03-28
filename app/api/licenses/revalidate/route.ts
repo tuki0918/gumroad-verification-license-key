@@ -6,7 +6,9 @@ export const POST = async (req: Request) => {
     const { license_key } = await req.json();
     console.log(`Revalidate license: ${license_key}`);
 
-    await execute(license_key);
+    await execute({
+      licenseKey: license_key,
+    });
 
     return Response.json({ success: true, message: "Success" });
   } catch (err) {
@@ -14,7 +16,7 @@ export const POST = async (req: Request) => {
     if (err instanceof CustomError) {
       return Response.json(
         { success: false, message: err.message, code: err.code },
-        { status: 500 },
+        { status: err.status },
       );
     }
     return Response.json({ success: false, message: "Error" }, { status: 500 });

@@ -84,7 +84,10 @@ const store = async (
   });
 };
 
-export const execute = async (licenseKey: string): Promise<void> => {
+export const execute = async (params: {
+  licenseKey: string;
+}): Promise<void> => {
+  const { licenseKey } = params;
   const { subscription, data } = await prepare(licenseKey);
 
   await store(subscription, data);

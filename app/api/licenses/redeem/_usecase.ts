@@ -136,14 +136,15 @@ const store = async (
   });
 };
 
-export const execute = async (
-  productId: string,
-  licenseKey: string,
-  discordId: string,
-): Promise<{
+export const execute = async (params: {
+  productId: string;
+  licenseKey: string;
+  discordId: string;
+}): Promise<{
   redeemLicense: RedeemLicenseWithoutID;
   subscription: SubscriptionWithoutID | null;
 }> => {
+  const { productId, licenseKey, discordId } = params;
   const { redeemLicense, subscription } = await prepare(
     productId,
     licenseKey,
