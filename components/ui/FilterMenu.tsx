@@ -29,8 +29,9 @@ const FilterMenu = <T extends FilterMenuType>({
       {checkboxList.map((status) => {
         return (
           <div key={status}>
-            <label>
+            <label className="label cursor-pointer">
               <input
+                className="checkbox"
                 type="checkbox"
                 value={status}
                 checked={filters.includes(status)}
