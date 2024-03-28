@@ -96,7 +96,7 @@ const RedeemLicenseList: FC<{
                     <span className="badge badge-ghost badge-sm">
                       {item.subscription.isAlive()
                         ? "✅"
-                        : item.subscription.status}
+                        : t(`status/${item.subscription.status}`)}
                     </span>
                   </div>
                 </td>
