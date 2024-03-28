@@ -1,5 +1,5 @@
 import { CustomError } from "@/app/api/_errors";
-import { execute } from "@/app/api/licenses/redeem/_usecase";
+import { execute } from "./_usecase";
 
 export const POST = async (req: Request) => {
   // NOTE: License key can be redeemed as long as it is valid
