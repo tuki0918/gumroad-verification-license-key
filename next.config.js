@@ -1,14 +1,12 @@
+const { withSentryConfig } = require("@sentry/nextjs");
+const withNextIntl = require("next-intl/plugin")("./utils/i18n/i18n.ts");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
 
-module.exports = nextConfig;
-
-// Injected content via Sentry wizard below
-
-const { withSentryConfig } = require("@sentry/nextjs");
-
-module.exports = withSentryConfig(
-  module.exports,
+/** @type {import('next').NextConfig} */
+const nextWithSentryConfig = withSentryConfig(
+  nextConfig,
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -46,3 +44,5 @@ module.exports = withSentryConfig(
     automaticVercelMonitors: true,
   },
 );
+
+module.exports = withNextIntl(nextWithSentryConfig);
