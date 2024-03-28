@@ -7,6 +7,7 @@ import {
   formatJSTDateTime,
   formatJSTTimeAgo,
 } from "@/libs/date";
+import { useTranslations } from "next-intl";
 import { FC, useMemo, useState } from "react";
 
 export type RedeemLicenseItem = {
@@ -22,6 +23,8 @@ const checkboxList: FilteredFieldsType[] = ["license_key", "product"];
 const RedeemLicenseList: FC<{
   items: RedeemLicenseItem[];
 }> = ({ items }) => {
+  const t = useTranslations("RedeemLicenseList");
+
   const [filteredFields, setFilteredFields] = useState<FilteredFieldsType[]>(
     [],
   );
@@ -48,21 +51,21 @@ const RedeemLicenseList: FC<{
         <table className="table table-xs">
           <thead>
             <tr>
-              <th className="text-center">Act</th>
-              <th>Id</th>
-              <th>Started At</th>
-              {isVisibleLicenseKeyField && <th>License Key</th>}
-              <th className="text-center">Status</th>
-              {isVisibleProductField && <th>Product</th>}
-              <th className="text-center">Redeems</th>
-              <th className="text-center">Recurrence</th>
-              <th>Ended At</th>
-              <th>Cancelled At</th>
-              <th>Failed At</th>
-              <th>Free Trial Ends At</th>
-              {/* <th>Created At</th> */}
-              <th>Updated At</th>
-              {/* <th>Comment</th> */}
+              <th className="text-center"></th>
+              <th>ID</th>
+              <th>{t("startedAt")}</th>
+              {isVisibleLicenseKeyField && <th>{t("licenseKey")}</th>}
+              <th className="text-center">{t("status")}</th>
+              {isVisibleProductField && <th>{t("productName")}</th>}
+              <th className="text-center">{t("redeems")}</th>
+              <th className="text-center">{t("recurrence")}</th>
+              <th>{t("endedAt")}</th>
+              <th>{t("cancelledAt")}</th>
+              <th>{t("failedAt")}</th>
+              <th>{t("freeTrialEndsAt")}</th>
+              {/* <th>{t("createdAt")}</th> */}
+              <th>{t("updatedAt")}</th>
+              {/* <th>{t("comment")}</th> */}
             </tr>
           </thead>
           <tbody>

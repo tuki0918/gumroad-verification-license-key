@@ -1,5 +1,17 @@
 {
-  "Common": {
-    "test": "test"
+  "RedeemLicenseList": {
+    "startedAt": "Started At",
+    "licenseKey": "License Key",
+    "status": "Status",
+    "productName": "Product",
+    "redeems": "Redeems",
+    "recurrence": "Recurrence",
+    "endedAt": "Ended At",
+    "cancelledAt": "Cancelled At",
+    "failedAt": "Failed At",
+    "freeTrialEndsAt": "Free Trial Ends At",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "comment": "Comment"
   }
 }

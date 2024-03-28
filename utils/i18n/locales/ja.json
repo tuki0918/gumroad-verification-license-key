@@ -1,5 +1,17 @@
 {
-  "Common": {
-    "test": "テスト"
+  "RedeemLicenseList": {
+    "startedAt": "契約日",
+    "licenseKey": "ライセンスキー",
+    "status": "状態",
+    "productName": "製品情報",
+    "redeems": "アカウント",
+    "recurrence": "契約更新日",
+    "endedAt": "契約終了日時",
+    "cancelledAt": "キャンセル日時",
+    "failedAt": "決済失敗日時",
+    "freeTrialEndsAt": "トライアル終了日時",
+    "createdAt": "作成日時",
+    "updatedAt": "更新日時",
+    "comment": "備考"
   }
 }
