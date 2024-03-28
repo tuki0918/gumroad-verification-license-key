@@ -1,22 +1,20 @@
 import { auth } from "@/auth";
-import { LoginButton, LogoutButton } from "@/components/AuthButton";
+import { LoginButton } from "@/components/AuthButton";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await auth();
   const isLogin = !!session;
+
+  // If the user is an admin, redirect to the admin page
+  if (isLogin) redirect("/x/admin");
+
   return (
     <main>
       <div>
-        {isLogin ? (
-          <div>
-            <h1>Welcome {session?.user?.name}</h1>
-            <LogoutButton />
-          </div>
-        ) : (
-          <div>
-            <LoginButton />
-          </div>
-        )}
+        <div>
+          <LoginButton />
+        </div>
       </div>
     </main>
   );
