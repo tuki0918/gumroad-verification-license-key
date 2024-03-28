@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import AdminDashboard from "@/components/AdminDashboard";
 import { LogoutButton } from "@/components/AuthButton";
-import prisma from "@/utils/prisma";
+import prisma from "@/libs/prisma";
 import { redirect } from "next/navigation";
 
 async function getData() {

@@ -1,9 +1,9 @@
 import { SubscriptionNotFoundError } from "@/app/api/_errors";
 import { RedeemLicense } from "@/domains/RedeemLicense";
 import { Subscription, SubscriptionWithoutID } from "@/domains/Subscription";
-import { revokeRoleFromUser } from "@/utils/discord";
-import { fetchSubscription } from "@/utils/gumroad";
-import prisma from "@/utils/prisma";
+import { revokeRoleFromUser } from "@/libs/discord";
+import { fetchSubscription } from "@/libs/gumroad";
+import prisma from "@/libs/prisma";
 
 const fetchSubscriptionByLicenseKey = async (
   licenseKey: string,

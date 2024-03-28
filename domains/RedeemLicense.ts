@@ -1,5 +1,5 @@
+import { parseToUTCDate } from "@/libs/date";
 import type { UnmarshalledPurchase } from "@/types/gumroad";
-import { parseToUTCDate } from "@/utils/date";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 

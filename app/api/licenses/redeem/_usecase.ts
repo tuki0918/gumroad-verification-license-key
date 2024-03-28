@@ -6,13 +6,13 @@ import {
 } from "@/app/api/_errors";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
-import { assignRoleToUser } from "@/utils/discord";
+import { assignRoleToUser } from "@/libs/discord";
 import {
   fetchSubscription,
   isLicenseKeyFormat,
   verifyLicense,
-} from "@/utils/gumroad";
-import prisma from "@/utils/prisma";
+} from "@/libs/gumroad";
+import prisma from "@/libs/prisma";
 
 const DISCORD_GRANT_COMMON_ROLE_ID = process.env.DISCORD_GRANT_COMMON_ROLE_ID;
 
