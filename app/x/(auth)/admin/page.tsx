@@ -1,6 +1,6 @@
-import { auth } from "@/auth";
 import AdminDashboard from "@/components/AdminDashboard";
 import { LogoutButton } from "@/components/AuthButton";
+import { auth } from "@/libs/auth/auth";
 import prisma from "@/libs/prisma";
 import { redirect } from "next/navigation";
 
