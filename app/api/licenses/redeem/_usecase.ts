@@ -12,7 +12,7 @@ import {
   isLicenseKeyFormat,
   verifyLicense,
 } from "@/utils/gumroad";
-import { client } from "@/utils/prisma";
+import prisma from "@/utils/prisma";
 
 const DISCORD_GRANT_COMMON_ROLE_ID = process.env.DISCORD_GRANT_COMMON_ROLE_ID;
 
@@ -97,36 +97,36 @@ const store = async (
   redeemLicense: RedeemLicenseWithoutID,
   subscription: SubscriptionWithoutID | null,
 ): Promise<void> => {
-  await client.$transaction(async (prisma) => {
-    const license = await prisma.redeemLicense.findFirst({
+  await prisma.$transaction(async (client) => {
+    const license = await client.redeemLicense.findFirst({
       where: { code: redeemLicense.code, discord_id: redeemLicense.discordId },
     });
 
     // Create or Update subscription if exists
     if (subscription !== null) {
-      const data = await prisma.subscription.findFirst({
+      const data = await client.subscription.findFirst({
         where: { subscription_id: subscription.subscriptionId },
       });
       if (data !== null) {
         // Update subscription
-        await prisma.subscription.update({
+        await client.subscription.update({
           data: subscription.toDB(),
           where: { id: data.id },
         });
       } else {
         // Create subscription
-        await prisma.subscription.create({ data: subscription.toDB() });
+        await client.subscription.create({ data: subscription.toDB() });
       }
     }
 
     // Create or Update redeem license
     if (license !== null) {
-      await prisma.redeemLicense.update({
+      await client.redeemLicense.update({
         data: redeemLicense.toDB(),
         where: { id: license.id },
       });
     } else {
-      await prisma.redeemLicense.create({ data: redeemLicense.toDB() });
+      await client.redeemLicense.create({ data: redeemLicense.toDB() });
     }
 
     // Discord grant roles (external)

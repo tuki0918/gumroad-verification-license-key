@@ -3,12 +3,12 @@ import { RedeemLicense } from "@/domains/RedeemLicense";
 import { Subscription, SubscriptionWithoutID } from "@/domains/Subscription";
 import { revokeRoleFromUser } from "@/utils/discord";
 import { fetchSubscription } from "@/utils/gumroad";
-import { client } from "@/utils/prisma";
+import prisma from "@/utils/prisma";
 
 const fetchSubscriptionByLicenseKey = async (
   licenseKey: string,
 ): Promise<Subscription> => {
-  const data = await client.subscription.findFirst({
+  const data = await prisma.subscription.findFirst({
     where: { license_key: licenseKey },
   });
 
@@ -48,9 +48,9 @@ const store = async (
   subscription: Subscription,
   data: SubscriptionWithoutID,
 ): Promise<void> => {
-  await client.$transaction(async (prisma) => {
+  await prisma.$transaction(async (client) => {
     // update subscription
-    await prisma.subscription.update({
+    await client.subscription.update({
       data: data.toDB(),
       where: { id: subscription.id },
     });
@@ -60,7 +60,7 @@ const store = async (
       console.log("Subscription is not alive");
       // disable all licenses
       const redeemLicenses = (
-        await prisma.redeemLicense.findMany({
+        await client.redeemLicense.findMany({
           where: { subscription_id: subscription.subscriptionId },
         })
       ).map((item) => RedeemLicense.reconstruct(item));
@@ -68,7 +68,7 @@ const store = async (
       for (const license of redeemLicenses) {
         if (license.isEnable()) {
           // disable license
-          await prisma.redeemLicense.update({
+          await client.redeemLicense.update({
             data: {
               status: "disabled",
             },

@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
 import AdminDashboard from "@/components/AdminDashboard";
 import { LogoutButton } from "@/components/AuthButton";
-import { client } from "@/utils/prisma";
+import prisma from "@/utils/prisma";
 import { redirect } from "next/navigation";
 
 async function getData() {
-  const data = await client.subscription.findMany({
+  const data = await prisma.subscription.findMany({
     orderBy: [
       {
         started_at: "asc",
