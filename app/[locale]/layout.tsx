@@ -22,7 +22,7 @@ export default function LocalLayout({
     <html lang={locale} data-theme="business">
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <div>{children}</div>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
