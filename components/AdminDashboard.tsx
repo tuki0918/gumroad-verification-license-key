@@ -47,8 +47,8 @@ const AdminDashboard: FC<AdminDashboardProps> = ({ data }) => {
     "alive",
     "pending_cancellation",
     "pending_failure",
-    "failed_payment",
-    "fixed_subscription_period_ended",
+    // "failed_payment",
+    // "fixed_subscription_period_ended",
     // "cancelled",
   ]);
 
