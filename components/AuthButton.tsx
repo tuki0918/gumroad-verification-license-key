@@ -16,9 +16,5 @@ export const LoginButton = () => {
 
 export const LogoutButton = () => {
   const t = useTranslations("AuthButton");
-  return (
-    <button className="btn text-xs" onClick={() => signOut()}>
-      {t("LogoutButton/logout")}
-    </button>
-  );
+  return <button onClick={() => signOut()}>{t("LogoutButton/logout")}</button>;
 };

@@ -67,21 +67,34 @@ const NavBar: FC<{ siteName: string; user: UserAccount }> = ({
       </div>
 
       <div className="flex items-center justify-end space-x-4">
-        <div className="avatar">
-          <div className="w-8 rounded-full">
-            {user.image === null ? (
-              <NoImageAvatar />
-            ) : (
-              <Image
-                src={user.image}
-                width={64}
-                height={64}
-                alt="profile avatar"
-              />
-            )}
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="avatar btn btn-circle btn-ghost"
+          >
+            <div className="w-8 rounded-full">
+              {user.image === null ? (
+                <NoImageAvatar />
+              ) : (
+                <Image
+                  src={user.image}
+                  width={64}
+                  height={64}
+                  alt="profile avatar"
+                />
+              )}
+            </div>
           </div>
+          <ul
+            tabIndex={0}
+            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+          >
+            <li>
+              <LogoutButton />
+            </li>
+          </ul>
         </div>
-        <LogoutButton />
       </div>
     </div>
   );
