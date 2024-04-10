@@ -5,7 +5,10 @@ import { useTranslations } from "next-intl";
 export const LoginButton = () => {
   const t = useTranslations("AuthButton");
   return (
-    <button className="btn text-xs" onClick={() => signIn()}>
+    <button
+      className="btn btn-info btn-wide text-white"
+      onClick={() => signIn()}
+    >
       {t("LoginButton/login")}
     </button>
   );

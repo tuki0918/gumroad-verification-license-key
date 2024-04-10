@@ -1,4 +1,7 @@
 {
+  "Login": {
+    "caption": "Sign in to your account"
+  },
   "AuthButton": {
     "LoginButton/login": "ログイン",
     "LogoutButton/logout": "ログアウト"

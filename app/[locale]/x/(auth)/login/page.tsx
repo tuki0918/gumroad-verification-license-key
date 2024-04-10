@@ -1,4 +1,4 @@
-import { LoginButton } from "@/components/AuthButton";
+import Login from "@/components/Login";
 import { auth } from "@/utils/auth/auth";
 import { redirect } from "next/navigation";
 
@@ -13,7 +13,7 @@ export default async function Home() {
     <main>
       <div>
         <div>
-          <LoginButton />
+          <Login />
         </div>
       </div>
     </main>
