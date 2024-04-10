@@ -2,7 +2,16 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const withNextIntl = require("next-intl/plugin")("./utils/i18n/i18n.ts");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
+};
 
 /** @type {import('next').NextConfig} */
 const nextWithSentryConfig = withSentryConfig(
