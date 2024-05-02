@@ -77,9 +77,14 @@ export class RedeemLicenseWithoutID {
   static createFromUnmarshalledPurchase(
     data: UnmarshalledPurchase,
     discordId: string,
-    discordGrantRoles: string[],
+    discordGrantRoles: string[] = [],
     status: RedeemLicenseStatusType = "enable",
   ): RedeemLicenseWithoutID {
+    const grantRoles = [...discordGrantRoles];
+    if (data.custom_fields?.discord_grant_role !== undefined) {
+      grantRoles.push(data.custom_fields.discord_grant_role);
+    }
+
     return RedeemLicenseWithoutID.create({
       code: data.license_key,
       purchased_at: parseToUTCDate(data.sale_timestamp),
@@ -93,7 +98,7 @@ export class RedeemLicenseWithoutID {
       recurrence: data.recurrence,
       status,
       discord_id: discordId,
-      discord_grant_roles: discordGrantRoles,
+      discord_grant_roles: grantRoles,
       subscription_id: data.subscription_id,
     });
   }

@@ -30,11 +30,7 @@ describe("fetchRedeemLicense", () => {
       RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
         expectedResponse.purchase,
         discordId,
-        [],
-        "enable",
       );
-
-    expectedRedeemLicense.addDiscordGrantRole("your-role-id");
 
     vi.spyOn(global, "fetch").mockImplementation(
       async () =>

@@ -19,8 +19,6 @@ describe("prepare", () => {
     const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
       createMockPurchase(),
       discordId,
-      [],
-      "enable",
     );
 
     const subscriptionData: ApiSubscriptionResponse = {
@@ -61,8 +59,6 @@ describe("prepare", () => {
     const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
       createMockPurchase(),
       discordId,
-      [],
-      "enable",
     );
 
     const subscriptionData: ApiSubscriptionResponse = {

@@ -32,15 +32,7 @@ export const fetchRedeemLicense = async (
   const redeemLicense = RedeemLicenseWithoutID.createFromUnmarshalledPurchase(
     purchase,
     discordId,
-    [],
-    "enable",
   );
-
-  if (purchase.custom_fields?.discord_grant_role !== undefined) {
-    redeemLicense.addDiscordGrantRole(
-      purchase.custom_fields.discord_grant_role,
-    );
-  }
 
   return redeemLicense;
 };
