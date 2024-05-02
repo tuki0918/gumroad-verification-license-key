@@ -1,5 +1,7 @@
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
+import { assignRoleToUser } from "@/libs/discord";
+import prisma from "@/libs/prisma";
 import { prepare } from "./_prepare";
 import { store } from "./_store";
 
@@ -25,7 +27,14 @@ export const execute = async (params: {
     redeemLicense.addDiscordGrantRole(DISCORD_GRANT_COMMON_ROLE_ID);
   }
 
-  await store(redeemLicense, subscription);
+  // transaction
+  await prisma.$transaction(async (client) => {
+    await store(client, redeemLicense, subscription);
+    // Discord grant roles (external)
+    for (const role of redeemLicense.discordGrantRoles) {
+      await assignRoleToUser(redeemLicense.discordId, role);
+    }
+  });
 
   return { redeemLicense, subscription };
 };

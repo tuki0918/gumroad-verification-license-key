@@ -1,47 +1,41 @@
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
-import { assignRoleToUser } from "@/libs/discord";
-import prisma from "@/libs/prisma";
+import { PrismaTransactionalClient } from "@/libs/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export const store = async (
+  db: PrismaClient | PrismaTransactionalClient,
   redeemLicense: RedeemLicenseWithoutID,
   subscription: SubscriptionWithoutID | null,
 ): Promise<void> => {
-  await prisma.$transaction(async (client) => {
-    const license = await client.redeemLicense.findFirst({
-      where: { code: redeemLicense.code, discord_id: redeemLicense.discordId },
+  const license = await db.redeemLicense.findFirst({
+    where: { code: redeemLicense.code, discord_id: redeemLicense.discordId },
+  });
+
+  // Create or Update subscription if exists
+  if (subscription !== null) {
+    const data = await db.subscription.findFirst({
+      where: { subscription_id: subscription.subscriptionId },
     });
-
-    // Create or Update subscription if exists
-    if (subscription !== null) {
-      const data = await client.subscription.findFirst({
-        where: { subscription_id: subscription.subscriptionId },
-      });
-      if (data !== null) {
-        // Update subscription
-        await client.subscription.update({
-          data: subscription.toDB(),
-          where: { id: data.id },
-        });
-      } else {
-        // Create subscription
-        await client.subscription.create({ data: subscription.toDB() });
-      }
-    }
-
-    // Create or Update redeem license
-    if (license !== null) {
-      await client.redeemLicense.update({
-        data: redeemLicense.toDB(),
-        where: { id: license.id },
+    if (data !== null) {
+      // Update subscription
+      await db.subscription.update({
+        data: subscription.toDB(),
+        where: { id: data.id },
       });
     } else {
-      await client.redeemLicense.create({ data: redeemLicense.toDB() });
+      // Create subscription
+      await db.subscription.create({ data: subscription.toDB() });
     }
+  }
 
-    // Discord grant roles (external)
-    for (const role of redeemLicense.discordGrantRoles) {
-      await assignRoleToUser(redeemLicense.discordId, role);
-    }
-  });
+  // Create or Update redeem license
+  if (license !== null) {
+    await db.redeemLicense.update({
+      data: redeemLicense.toDB(),
+      where: { id: license.id },
+    });
+  } else {
+    await db.redeemLicense.create({ data: redeemLicense.toDB() });
+  }
 };
