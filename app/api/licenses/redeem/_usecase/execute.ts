@@ -2,8 +2,8 @@ import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
 import { assignRoleToUser } from "@/libs/discord";
 import prisma from "@/libs/prisma";
-import { prepare } from "./_prepare";
-import { store } from "./_store";
+import { prepare } from "./prepare";
+import { store } from "./store";
 
 const DISCORD_GRANT_COMMON_ROLE_ID = process.env.DISCORD_GRANT_COMMON_ROLE_ID;
 

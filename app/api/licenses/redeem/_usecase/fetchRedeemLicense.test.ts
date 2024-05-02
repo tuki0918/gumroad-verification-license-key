@@ -9,7 +9,7 @@ import type {
   ApiResponseError,
   ApiVerifyLicenseResponse,
 } from "@/types/gumroad";
-import { fetchRedeemLicense } from "./_fetchRedeemLicense";
+import { fetchRedeemLicense } from "./fetchRedeemLicense";
 
 describe("fetchRedeemLicense", () => {
   test("should fetch and redeem a license", async () => {

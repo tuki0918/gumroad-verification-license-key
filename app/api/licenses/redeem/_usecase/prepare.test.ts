@@ -7,8 +7,8 @@ import {
   createMockSubscriber,
 } from "@/mocks/factories/gumroad";
 import type { ApiSubscriptionResponse } from "@/types/gumroad";
-import * as fetchRedeemLicenseX from "./_fetchRedeemLicense";
-import { prepare } from "./_prepare";
+import * as fetchRedeemLicenseX from "./fetchRedeemLicense";
+import { prepare } from "./prepare";
 
 describe("prepare", () => {
   test("should return redeemLicense and subscription", async () => {

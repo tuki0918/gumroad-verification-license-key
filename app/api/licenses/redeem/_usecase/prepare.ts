@@ -2,7 +2,7 @@ import { SubscriptionIsNotAliveError } from "@/app/api/_errors";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
 import { fetchSubscription } from "@/libs/gumroad";
-import { fetchRedeemLicense } from "./_fetchRedeemLicense";
+import { fetchRedeemLicense } from "./fetchRedeemLicense";
 
 export const prepare = async (
   productId: string,
