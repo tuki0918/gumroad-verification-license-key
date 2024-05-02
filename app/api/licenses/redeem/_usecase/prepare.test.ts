@@ -1,4 +1,4 @@
-import { SubscriptionIsNotAliveError } from "@/app/api/_errors";
+import { SubscriptionIsNotAliveError } from "@/app/_exceptions";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { SubscriptionWithoutID } from "@/domains/Subscription";
 import * as fetchSubscriptionX from "@/libs/gumroad";

@@ -1,4 +1,4 @@
-import { CustomError } from "@/app/api/_errors";
+import { AppError } from "@/app/_exceptions";
 import { execute } from "./_usecase";
 
 export const POST = async (req: Request) => {
@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
     return Response.json({ success: true, message: "Success" });
   } catch (err) {
     console.log(err);
-    if (err instanceof CustomError) {
+    if (err instanceof AppError) {
       return Response.json(
         { success: false, message: err.message, code: err.code },
         { status: err.status },

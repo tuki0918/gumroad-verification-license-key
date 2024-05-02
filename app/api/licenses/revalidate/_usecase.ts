@@ -1,4 +1,4 @@
-import { SubscriptionNotFoundError } from "@/app/api/_errors";
+import { SubscriptionNotFoundError } from "@/app/_exceptions";
 import { RedeemLicense } from "@/domains/RedeemLicense";
 import { Subscription, SubscriptionWithoutID } from "@/domains/Subscription";
 import { revokeRoleFromUser } from "@/libs/discord";

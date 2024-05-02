@@ -2,7 +2,7 @@ import {
   FailedToVerifyLicenseKeyError,
   InvalidLicenseKeyError,
   LicenseKeyDisabledError,
-} from "@/app/api/_errors";
+} from "@/app/_exceptions";
 import { RedeemLicenseWithoutID } from "@/domains/RedeemLicense";
 import { isLicenseKeyFormat, verifyLicense } from "@/libs/gumroad";
 

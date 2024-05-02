@@ -1,4 +1,4 @@
-import { CustomError } from "@/app/api/_errors";
+import { AppError } from "@/app/_exceptions";
 import { execute } from "./_usecase/execute";
 export const POST = async (req: Request) => {
   // NOTE: License key can be redeemed as long as it is valid
@@ -22,7 +22,7 @@ export const POST = async (req: Request) => {
     });
   } catch (err) {
     console.log(err);
-    if (err instanceof CustomError) {
+    if (err instanceof AppError) {
       return Response.json(
         { success: false, message: err.message, code: err.code },
         { status: err.status },
