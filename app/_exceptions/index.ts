@@ -1,4 +1,5 @@
 export * from "./AppError";
+export * from "./FailedToFetchSubscriptionError";
 export * from "./FailedToVerifyLicenseKeyError";
 export * from "./InvalidLicenseKeyError";
 export * from "./LicenseKeyAlreadyExistsError";
