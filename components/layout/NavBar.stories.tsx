@@ -1,6 +1,6 @@
+import SettingsProvider from "@/components/providers/SettingsProvider";
 import { APP_DATA } from "@/constants/appdata";
 import { UserAccount } from "@/domains/UserAccount";
-import SettingsProvider from "@/providers/SettingsProvider";
 import type { Meta, StoryObj } from "@storybook/react";
 import NavBar from "./NavBar";
 

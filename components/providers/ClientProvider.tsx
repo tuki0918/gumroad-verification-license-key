@@ -1,6 +1,6 @@
 "use client";
 
-import SettingsProvider from "@/providers/SettingsProvider";
+import SettingsProvider from "@/components/providers/SettingsProvider";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 

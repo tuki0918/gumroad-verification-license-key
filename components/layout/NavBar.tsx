@@ -1,8 +1,8 @@
 "use client";
 import { LogoutButton } from "@/components/AuthButton";
+import { useSettings } from "@/components/providers/SettingsProvider";
 import { APP_DATA } from "@/constants/appdata";
 import { UserAccount } from "@/domains/UserAccount";
-import { useSettings } from "@/providers/SettingsProvider";
 import { Session } from "next-auth";
 import Image from "next/image";
 import { FC, useCallback } from "react";

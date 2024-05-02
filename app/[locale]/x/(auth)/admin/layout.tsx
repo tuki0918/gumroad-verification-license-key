@@ -1,5 +1,5 @@
 import { NavBarWithSession } from "@/components/layout/NavBar";
-import ClientProvider from "@/providers/ClientProvider";
+import ClientProvider from "@/components/providers/ClientProvider";
 import { auth } from "@/utils/auth/auth";
 import { redirect } from "next/navigation";
 
