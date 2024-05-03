@@ -28,7 +28,8 @@ export type UnmarshalledPurchase = {
   sale_id: string;
   sale_timestamp: string;
   purchaser_id: string;
-  subscription_id: string;
+  /** @deprecated null value unconfirmed */
+  subscription_id: string | null;
   variants: string;
   license_key: string;
   is_multiseat_license: boolean;

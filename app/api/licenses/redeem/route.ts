@@ -1,16 +1,25 @@
 import { AppError } from "@/app/_exceptions";
-import { execute } from "./_usecase/execute";
+import { GumroadGetSubscriptionService } from "@/domains/services/GumroadGetSubscriptionService";
+import { GumroadVerifyRedeemLicenseService } from "@/domains/services/GumroadVerifyRedeemLicenseService";
+import prisma from "@/libs/prisma";
+import { RedeemUseCase } from "./_usecase";
+import { PrepareService } from "./_usecase/PrepareService";
 export const POST = async (req: Request) => {
   // NOTE: License key can be redeemed as long as it is valid
   try {
     const { product_id, license_key, discord_id } = await req.json();
     console.log(`Redeem license: ${license_key}: ${discord_id}`);
 
-    const { redeemLicense } = await execute({
-      productId: product_id,
-      licenseKey: license_key,
-      discordId: discord_id,
-    });
+    const prepareService = new PrepareService(
+      new GumroadVerifyRedeemLicenseService(),
+      new GumroadGetSubscriptionService(),
+    );
+    const usecase = new RedeemUseCase(prisma, prepareService);
+    const { redeemLicense } = await usecase.execute(
+      product_id,
+      license_key,
+      discord_id,
+    );
 
     return Response.json({
       success: true,
