@@ -8,6 +8,7 @@ import { GumroadGetSubscriptionService } from "./GumroadGetSubscriptionService";
 describe("GumroadGetSubscriptionService", () => {
   describe("execute", () => {
     test("should return a subscription", async () => {
+      const licenseKey = "valid-license-key";
       const subscriptionId = "valid-subscription-id";
       const subscriptionData: ApiSubscriptionResponse = {
         success: true,
@@ -18,17 +19,19 @@ describe("GumroadGetSubscriptionService", () => {
         .spyOn(gumroad, "fetchSubscription")
         .mockResolvedValue(subscriptionData);
 
-      const result = await service.execute(subscriptionId);
+      const result = await service.execute(subscriptionId, licenseKey);
 
       expect(fetchSubscriptionMock).toHaveBeenCalledWith(subscriptionId);
       expect(result).toEqual(
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          subscriptionData.subscriber,
-        ),
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...subscriptionData.subscriber,
+          license_key: licenseKey,
+        }),
       );
     });
 
     test("should throw FailedToFetchSubscriptionError for failed fetch", async () => {
+      const licenseKey = "invalid-license-key";
       const subscriptionId = "invalid-subscription-id";
       const subscriptionData: ApiSubscriptionResponse = {
         success: false,
@@ -40,7 +43,7 @@ describe("GumroadGetSubscriptionService", () => {
         .spyOn(gumroad, "fetchSubscription")
         .mockResolvedValue(subscriptionData);
 
-      await expect(service.execute(subscriptionId)).rejects.toThrow(
+      await expect(service.execute(subscriptionId, licenseKey)).rejects.toThrow(
         FailedToFetchSubscriptionError,
       );
 

@@ -38,8 +38,14 @@ const prepare = async (
     );
   }
 
+  // case: License key is undefined
+  if (!res.subscriber.license_key) {
+    console.info("License key is undefined:", subscription.subscriptionId);
+  }
+
   const data = SubscriptionWithoutID.createFromUnmarshalledSubscription(
-    res.subscriber,
+    // HOTFIX: license_key is not included in this response in some cases
+    { ...res.subscriber, license_key: licenseKey },
   );
   return { subscription, data };
 };

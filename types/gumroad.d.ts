@@ -73,7 +73,7 @@ export type UnmarshalledSubscriber = {
   ended_at: string | null;
   failed_at: string | null;
   free_trial_ends_at: string | null;
-  license_key: string;
+  license_key?: string;
   status: UnmarshalledSubscriberStatus;
 };
 

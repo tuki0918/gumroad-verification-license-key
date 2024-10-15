@@ -82,7 +82,7 @@ export class SubscriptionWithoutID {
   }
 
   static createFromUnmarshalledSubscription(
-    data: UnmarshalledSubscriber,
+    data: UnmarshalledSubscriber & { license_key: string },
   ): SubscriptionWithoutID {
     return SubscriptionWithoutID.create({
       subscription_id: data.id,

@@ -64,9 +64,10 @@ describe("PrepareService", () => {
         );
 
       const subscription =
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          createMockSubscriber(),
-        );
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...createMockSubscriber(),
+          license_key: licenseKey,
+        });
       (gumroadVRLService.execute as Mock).mockResolvedValue(redeemLicense);
       (gumroadGSService.execute as Mock).mockResolvedValue(subscription);
 
@@ -80,6 +81,7 @@ describe("PrepareService", () => {
       );
       expect(gumroadGSService.execute).toHaveBeenCalledWith(
         redeemLicense.subscriptionId,
+        licenseKey,
       );
     });
 
@@ -96,9 +98,10 @@ describe("PrepareService", () => {
         );
 
       const subscription =
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          createMockSubscriber({ status: "cancelled" }),
-        );
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...createMockSubscriber({ status: "cancelled" }),
+          license_key: licenseKey,
+        });
       (gumroadVRLService.execute as Mock).mockResolvedValue(redeemLicense);
       (gumroadGSService.execute as Mock).mockResolvedValue(subscription);
 

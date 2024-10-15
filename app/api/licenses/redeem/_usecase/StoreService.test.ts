@@ -63,9 +63,10 @@ describe("StoreService", () => {
           "discord-id",
         );
       const subscription =
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          createMockSubscriber(),
-        );
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...createMockSubscriber(),
+          license_key: "license-key",
+        });
 
       (db.redeemLicense.findFirst as Mock).mockResolvedValue(null);
       (db.subscription.findFirst as Mock).mockResolvedValue(null);
@@ -99,9 +100,10 @@ describe("StoreService", () => {
         );
 
       const subscriptionWithoutID =
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          createMockSubscriber(),
-        );
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...createMockSubscriber(),
+          license_key: "license-key",
+        });
 
       (db.redeemLicense.findFirst as Mock).mockResolvedValue(null);
       (db.subscription.findFirst as Mock).mockResolvedValue({ id: 222 });
@@ -136,9 +138,10 @@ describe("StoreService", () => {
         );
 
       const subscriptionWithoutID =
-        SubscriptionWithoutID.createFromUnmarshalledSubscription(
-          createMockSubscriber(),
-        );
+        SubscriptionWithoutID.createFromUnmarshalledSubscription({
+          ...createMockSubscriber(),
+          license_key: "license-key",
+        });
 
       (db.redeemLicense.findFirst as Mock).mockResolvedValue({ id: 111 });
       (db.subscription.findFirst as Mock).mockResolvedValue({ id: 222 });

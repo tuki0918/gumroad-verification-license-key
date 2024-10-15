@@ -42,7 +42,10 @@ export class PrepareService implements PrepareServiceInterface {
 
     // Get subscription if exists
     const subscription: SubscriptionWithoutID =
-      await this.gumroadGSService.execute(redeemLicense.subscriptionId);
+      await this.gumroadGSService.execute(
+        redeemLicense.subscriptionId,
+        licenseKey,
+      );
 
     if (!subscription.isAlive()) {
       const text = "Subscription is not alive";
